@@ -4,7 +4,7 @@ const app = express(); // Inicializar Servidor
 const port = 3000; // puerto que voy a usar
 
 // importar middlewares
-const morgan = require('./middlewares/morgan');
+// const morgan = require('./middlewares/morgan');
 const manage404 = require('./middlewares/manage404');
 const auth_api_key = require('./middlewares/auth_api_key');
 
@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Logger
-app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
+// app.use(morgan(':method :url :status :param[id] - :response-time ms :body'));
 
 // Motor EJS para plantilla
 app.set('view engine', 'ejs');
