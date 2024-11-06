@@ -29,21 +29,24 @@ require('dotenv').config();
 const API_KEY = process.env.API_KEY;
 console.log("API_KEY=", API_KEY);
 
-app.get('/', function (req, res) {
-	//res.send('Hello World!');
-	res.render('index');
-})
+// pasamos valores predeterminados de weather y error 
+// a index.ejs cuando se cargue inicialmente
+app.get('/', (req, res) => {
+    res.render('index', { weather: null, error: null }); 
+});
 
 app.post('/', function (req, res) {
 	let city = req.body.city;
 	let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`
   
-	
+	let weather;
+
 	request(url, function (err, response, body) {
 	  if(err){
 		res.render('index', {weather: null, error: 'Error, please try again'});
 	  } else {
-		let weather = JSON.parse(body)
+		weather = JSON.parse(body);
+		
 		if(weather.main == undefined){
 		  res.render('index', {weather: null, error: 'Error, please try again'});
 		} else {
